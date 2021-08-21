@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1029454486746",
+    "project_id": "feedback-admore",
+    "storage_bucket": "feedback-admore.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029454486746:android:f105ff0fd15ce0ab50d9e3",
+        "android_client_info": {
+          "package_name": "com.example.feedback"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029454486746-7s9erkv4j2q2l93rc62n518qaetn8h79.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5PRB-sJVvIi3_VfmbTLhqQWJK7BIgt70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029454486746-7s9erkv4j2q2l93rc62n518qaetn8h79.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
