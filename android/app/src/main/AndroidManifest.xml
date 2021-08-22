@@ -2,7 +2,8 @@
     package="com.example.feedback">
    <application
         android:label="feedback"
-        android:icon="@mipmap/ic_launcher">
+       android:usesCleartextTraffic="true"
+       android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
