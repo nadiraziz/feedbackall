@@ -1,4 +1,5 @@
 import 'package:feedback/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,8 +15,14 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+
+  String email = "";
+  String password = "";
+
+
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -36,39 +43,52 @@ class _SignUpState extends State<SignUp> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                        hintText: "Enter Username",
-                        labelText: "Username"
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      onChanged: (val) => {
+                        setState(() => email = val)
+                      },
+                      validator: (val) => val!.isEmpty ? 'Enter a Email': null,
+                      decoration: InputDecoration(
+                          hintText: "Enter Username",
+                          labelText: "Username"
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        hintText: "Enter Password",
-                        labelText: "Password"
+                    SizedBox(
+                      height: 20.0,
                     ),
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  ElevatedButton(
-                    child: Text('Sign up'),
-                    style: TextButton.styleFrom(),
-                    onPressed: (){
-                      context.read<AuthenticationService>().signUp(
-                          email: emailController.text.trim(),
-                          password: passwordController.text.trim());
-                    },
-                  ),
-                ]
+                    TextFormField(
+                      validator: (val) => val!.length < 6 ? 'Enter 6+ character': null,
+                      onChanged: (val) => {
+                        setState(() => password = val)
+                      },
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          hintText: "Enter Password",
+                          labelText: "Password"
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    ElevatedButton(
+                      child: Text('Sign up'),
+                      style: TextButton.styleFrom(),
+                      onPressed: () async {
+                        setState(() {
+                          if(_formKey.currentState!.validate()){
+                            context.read<AuthenticationService>().signUp(
+                                email: email,
+                                password: password);
+                          }
+                        });
+                      },
+                    ),
+                  ]
+                ),
               ),
             ),
         ]),
@@ -76,5 +96,3 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
-
-

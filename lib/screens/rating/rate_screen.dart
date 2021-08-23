@@ -4,8 +4,7 @@ import 'package:feedback/services/questions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'question.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 QuizBrain RatingBrain = QuizBrain();
 
@@ -45,10 +44,13 @@ class _RatingState extends State<Rating> {
           //   ),
           // ),
           Expanded(
-            child: SmoothStarRating(
-              spacing: 3,
+            child: RatingBar.builder(
+              initialRating: rating,
               allowHalfRating: true,
-              onRated: (value) {
+              minRating: 1,
+              itemCount: 5,
+              itemBuilder: (context, _) => Icon(Icons.star,color: Colors.amber),
+              onRatingUpdate: (value) {
                 setState(() {
                   rating = value;
                   ratedList.add(rating.toInt());
@@ -76,10 +78,7 @@ class _RatingState extends State<Rating> {
                   }
                 });
               },
-              rating: rating,
-              starCount: 5,
-              size: 45,
-              isReadOnly: false,
+
             ),
           ),
 

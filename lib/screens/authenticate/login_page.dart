@@ -1,5 +1,7 @@
 import 'package:feedback/screens/authenticate/sign_up.dart';
+import 'package:feedback/screens/home/home.dart';
 import 'package:feedback/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,8 +17,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  // final _formKey = GlobalKey<FormState>();
+  // if(_formKey.currentState!.validate()){
+  final User? user = FirebaseAuth.instance.currentUser;
+
+  String email = "";
+  String password = "";
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +49,13 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: [
                     TextFormField(
-                      controller: emailController,
+                      onChanged: (val) => {
+                        setState(() => email = val)
+                      },
+                      validator: (val) => val!.isEmpty ? 'Enter a Email': null,
                       decoration: InputDecoration(
-                          hintText: "Enter Username",
-                          labelText: "Username"
+                          hintText: "Enter Email",
+                          labelText: "Email"
                       ),
                     ),
                     SizedBox(
@@ -53,7 +63,10 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
-                      controller: passwordController,
+                      validator: (val) => val!.length < 6 ? 'Enter 6+ character': null,
+                      onChanged: (val) => {
+                        setState(() => password = val)
+                      },
                       obscureText: true,
                       decoration: InputDecoration(
                           hintText: "Enter Password",
@@ -66,10 +79,15 @@ class _LoginPageState extends State<LoginPage> {
                     ElevatedButton(
                       child: Text('Login'),
                       style: TextButton.styleFrom(),
-                      onPressed: (){
-                        context.read<AuthenticationService>().signIn(
-                          email: emailController.text.trim(),
-                          password: passwordController.text.trim());
+                      onPressed: () async {
+                           setState(() {
+                             context.read<AuthenticationService>().signIn(
+                                 email: email,
+                                 password: password);
+                             // Navigator.of(context)
+                             //     .pushNamedAndRemoveUntil(HomePage.id, (Route<dynamic> route) => false);
+                             Navigator.pushNamed(context, HomePage.id);
+                           });
                       },
                     ),
                     SizedBox(
@@ -105,3 +123,7 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 
+
+void goHome(){
+
+}

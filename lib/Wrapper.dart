@@ -1,5 +1,6 @@
 import 'package:feedback/screens/authenticate/login_page.dart';
 import 'package:feedback/screens/home/home.dart';
+import 'package:feedback/screens/welcome_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,9 +19,10 @@ class _WrapperState extends State<Wrapper> {
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
 
+
     if (firebaseUser != null){
       return HomePage();
     }
-    return LoginPage();
+    return WelcomeScreen();
   }
 }

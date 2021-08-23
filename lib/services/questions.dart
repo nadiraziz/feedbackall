@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class Question {
   String questionText;
 
@@ -8,7 +10,6 @@ class Question {
 
 class QuizBrain {
   int _questionNumber = 0;
-
   List<Question> _questionBank = [
     Question(questionText: 'How was the Hotel?'),
     Question(questionText: 'How was the car?'),
@@ -16,6 +17,8 @@ class QuizBrain {
     Question(questionText: 'How was the kitchen?'),
     Question(questionText: 'How was the toilet?'),
   ];
+
+
 
   void nextQuestion() {
     if (_questionNumber < _questionBank.length - 1) {
@@ -43,5 +46,7 @@ class QuizBrain {
   void reset() {
     _questionNumber = 0;
   }
+
 }
 
+// sign out

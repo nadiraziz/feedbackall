@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:feedback/Wrapper.dart';
 import 'package:feedback/screens/authenticate/login_page.dart';
 import 'package:feedback/screens/authenticate/sign_up.dart';
+import 'package:feedback/screens/home/dashboard.dart';
 import 'package:feedback/screens/home/home.dart';
 import 'package:feedback/screens/rating/rate_screen.dart';
 import 'package:feedback/screens/welcome_screen.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
+          debugShowMaterialGrid: false,
           themeMode: ThemeMode.light,
           theme: ThemeData(
           primarySwatch: Colors.deepPurple,
@@ -48,6 +50,7 @@ class MyApp extends StatelessWidget {
             WelcomeScreen.id: (context) => WelcomeScreen(),
             SignUp.id: (context) => SignUp(),
             HomePage.id: (context) => HomePage(),
+            Dashboard.id: (context) => Dashboard(),
           },
         ),
 

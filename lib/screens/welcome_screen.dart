@@ -19,6 +19,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           backgroundColor: Colors.white,
           body: Center(
             child: Column(
+
               children: [
                 SizedBox(
                   height: 100.0,
