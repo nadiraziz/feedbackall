@@ -1,5 +1,6 @@
 import 'package:feedback/screens/authenticate/login_page.dart';
 import 'package:feedback/screens/authenticate/sign_up.dart';
+import 'package:feedback/screens/rating/compents/customer_info.dart';
 import 'package:flutter/material.dart';
 
 
@@ -17,44 +18,34 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
           backgroundColor: Colors.white,
-          body: Center(
-            child: Column(
-
-              children: [
-                SizedBox(
-                  height: 100.0,
-                ),
-                Expanded(child: Image.asset('assets/images/welcome.png', fit: BoxFit.cover)),
-                Text(
-                  'Welcome To FeedBack', style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 32),
-                ),
-                SizedBox(
-                  height: 50.0,
-                ),
-                ElevatedButton(
-                  onPressed: (){
-                    Navigator.pushNamed(context, LoginPage.id);
-                  },
-                  child: Text('  Sign In  ', style: TextStyle(fontSize: 24)),
-                  style: TextButton.styleFrom(),
-                ),
-                SizedBox(
-                  height: 50.0,
-                ),
-                ElevatedButton(
-                  onPressed: (){
-                    Navigator.pushNamed(context, SignUp.id);
-                  },
-                  child: Text(' Sign Up ', style: TextStyle(fontSize: 24)),
-                  style: TextButton.styleFrom(),
-                ),
-                SizedBox(
-                  height: 50.0,
-                ),
-              ],
+          body: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/vivah.png'),fit: BoxFit.fitWidth)),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    onPressed: (){
+                      Navigator.pushNamed(context, CustomerInfo.id);
+                    },
+                    child: Text('Start', style: TextStyle(fontSize: 30,fontWeight: FontWeight.w300)),
+                    style: TextButton.styleFrom(),
+                  ),
+                  SizedBox(height: 20.0),
+                  MaterialButton(
+                    onPressed: (){
+                      Navigator.pushNamed(context, LoginPage.id);
+                    },
+                    child: Text('Admin', style: TextStyle(fontSize: 14,color: Colors.grey)),
+                    // style: TextButton.styleFrom(),
+                  ),
+                  SizedBox(
+                    height: 50.0,
+                  ),
+                ],
+              ),
             ),
           ),
     );
