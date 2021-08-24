@@ -2,6 +2,7 @@ import 'package:feedback/screens/authenticate/login_page.dart';
 import 'package:feedback/screens/home/dashboard.dart';
 import 'package:feedback/screens/rating/compents/customer_info.dart';
 import 'package:feedback/screens/rating/compents/rate_screen.dart';
+import 'package:feedback/screens/welcome_screen.dart';
 import 'package:feedback/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                   context.read<AuthenticationService>().signOut();
                   // Navigator.of(context)
                   //     .pushNamedAndRemoveUntil(LoginPage.id, (Route<dynamic> route) => false);
-                  Navigator.pushNamed(context, LoginPage.id);
+                  Navigator.pushNamed(context, WelcomeScreen.id);
                 },
                 child: Text('Log Out')),
           ),
