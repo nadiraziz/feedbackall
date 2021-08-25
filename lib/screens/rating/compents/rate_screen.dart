@@ -1,3 +1,4 @@
+import 'package:feedback/screens/rating/compents/customer_info.dart';
 import 'package:feedback/screens/welcome_screen.dart';
 import 'package:feedback/services/questions.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,11 +9,15 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 QuizBrain RatingBrain = QuizBrain();
 
 class Rating extends StatefulWidget {
+  const Rating({Key? key,required this.customerEmail, required this.customerName, required this.customerPhone}) : super(key: key);
+  final String customerName;
+  final String customerEmail;
+  final String customerPhone;
   static String id = 'rate_screen';
-  const Rating({Key? key}) : super(key: key);
+
 
   @override
-  _RatingState createState() => _RatingState();
+  _RatingState createState() => _RatingState(this.customerEmail, this.customerPhone, this.customerName);
 }
 
 class _RatingState extends State<Rating> {
@@ -20,11 +25,16 @@ class _RatingState extends State<Rating> {
   List<dynamic?> ratedList = [];
   final NameRated = TextEditingController();
   final Phone = TextEditingController();
-
+  String customerName;
+  String customerEmail;
+  String customerPhone;
+  _RatingState(this.customerName, this.customerEmail, this.customerPhone);
 
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -32,7 +42,7 @@ class _RatingState extends State<Rating> {
                 image: AssetImage('assets/images/vivah4.jpg'),fit: BoxFit.fill)),
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 200.0),
+            padding: const EdgeInsets.symmetric(vertical: 180.0),
             child: Container(
               decoration: BoxDecoration(
                 color: Color.fromRGBO(211, 211, 211, 90),
@@ -52,7 +62,7 @@ class _RatingState extends State<Rating> {
                 children: [
                   Expanded(child: Image.asset('assets/images/vivahblack.png', fit: BoxFit.fitWidth, )),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                     child: Text(RatingBrain.getQuestionText(),textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 35.0,color: Colors.black87, fontWeight: FontWeight.w400),),
                   ),
@@ -71,20 +81,22 @@ class _RatingState extends State<Rating> {
 
                         if (!RatingBrain.isFinished()){
                           rating = 5;
+                          print(value);
 
                           RatingBrain.nextQuestion();
                         }else{
 
                           Map<String,dynamic> data ={
-                              'car': ratedList[0],
-                              'home': ratedList[1],
-                              'room': ratedList[2],
-                              'kitchen': ratedList[3],
-                              'toilet': ratedList[4],
-                              'name':NameRated.text,
-                              "phone": Phone.text,
-
+                            'name': customerName,
+                            "email": customerEmail,
+                            "phone": customerPhone,
+                            'car': ratedList[0],
+                            'home': ratedList[1],
+                            'room': ratedList[2],
+                            'kitchen': ratedList[3],
+                            'toilet': ratedList[4],
                           };
+
                         FirebaseFirestore.instance.collection('ratingwithuser').add(data);
                         RatingBrain.reset();
                         ratedList = [];
@@ -95,10 +107,8 @@ class _RatingState extends State<Rating> {
                       }
                     });
                   },
-
                   ),
                   SizedBox(height: 30.0)
-
                 ],
               ),
             ),
@@ -112,24 +122,3 @@ class _RatingState extends State<Rating> {
 
 
 
-class TextEnquiry extends StatefulWidget {
-
-
-  const TextEnquiry({Key? key}) : super(key: key);
-
-  @override
-  _TextEnquiryState createState() => _TextEnquiryState();
-}
-
-class _TextEnquiryState extends State<TextEnquiry> {
-  String? Name;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children:[
-
-    ]
-    );
-  }
-}

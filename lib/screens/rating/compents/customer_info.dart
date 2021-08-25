@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:feedback/screens/rating/compents/rate_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -13,9 +15,10 @@ class CustomerInfo extends StatefulWidget {
 class _CustomerInfoState extends State<CustomerInfo> {
 
   String name = "";
-  int phone = 0;
+  String phone = '';
   String email = "";
   bool isChecked = false;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,69 +31,107 @@ class _CustomerInfoState extends State<CustomerInfo> {
       if (states.any(interactiveStates.contains)) {
         return Colors.blue;
       }
-      return Colors.deepPurple;
+      return Colors.amber;
     }
     return new Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: <Widget>[
-            Expanded(child: Image.asset('assets/images/vivah.png', fit: BoxFit.fitWidth)),
-            TextFormField(
-              decoration: const InputDecoration(
-                icon: Icon(Icons.person),
-                hintText: 'What do people call you?',
-                labelText: 'Name *',
-              ),
-              onChanged: (val) => {
-                setState(() => name = val)
-              },
-            ),
-            TextFormField(
-              decoration: const InputDecoration(
-                icon: Icon(Icons.email),
-                hintText: 'Enter your email?',
-                labelText: 'Email *',
-              ),
-              onChanged: (val) => {
-                setState(() => email = val)
-              },
-            ),
-            TextFormField(
-              decoration: const InputDecoration(
-                icon: Icon(Icons.phone),
-                hintText: 'Enter your mobile number',
-                labelText: 'Phone *',
-              ),
-            ),
-            Row(
-              children: [
-                Checkbox(
-                  checkColor: Colors.white,
-                  fillColor: MaterialStateProperty.resolveWith(getColor),
-                  value: isChecked,
-                  onChanged: (bool? value) {
-                  setState(() {
-                    isChecked = value!;
-                   });
-                  },
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              Expanded(child: Image.asset('assets/images/vivah.png', fit: BoxFit.fitWidth)),
+              TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your name';
+                  }
+                  return null;
+                },
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  hintText: 'What do people call you?',
+                  labelText: 'Name *',
                 ),
-                SizedBox(width: 20.0,),
-                Text('Are You Interested to get updates?')
-              ],
-            ),
-            ElevatedButton(onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Rating(),
+                onChanged: (val) => {
+                  setState(() => name = val)
+                },
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your Email';
+                  }
+                  return null;
+                },
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.email),
+                  hintText: 'Enter your email?',
+                  labelText: 'Email *',
                 ),
-              );
-            },
-              child: Text('Next'),
-              style: TextButton.styleFrom(),
-            )
-          ],
+                onChanged: (val) => {
+                  setState(() => email = val)
+                },
+
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your phone number';
+                  }
+                  return null;
+                },
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.phone),
+                  hintText: 'Enter your mobile number',
+                  labelText: 'Phone *',
+                ),
+                onChanged: (val) => {
+                  setState(() => phone = val)
+                },
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    checkColor: Colors.white,
+                    fillColor: MaterialStateProperty.resolveWith(getColor),
+                    value: isChecked,
+                    onChanged: (bool? value) {
+                    setState(() {
+                      isChecked = value!;
+                     });
+                    },
+                  ),
+                  SizedBox(width: 20.0,),
+                  Text('Are You Interested to get updates?')
+                ],
+              ),
+              ElevatedButton(onPressed: (){
+                Map<String,dynamic> CustomerData ={
+                  'name': name,
+                  'email': email,
+                  'phone': phone,
+                };
+                if(isChecked){
+                  FirebaseFirestore.instance.collection('customerInfo').add(CustomerData);
+                }
+                if (_formKey.currentState!.validate()) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          Rating(customerName: name,
+                            customerEmail: email,
+                            customerPhone: phone),
+                    ),
+                  );
+                }
+              },
+                child: Text('Next'),
+                style: TextButton.styleFrom(),
+              )
+            ],
+          ),
         ),
       ),
     );

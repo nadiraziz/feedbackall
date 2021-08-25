@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:feedback/Wrapper.dart';
 import 'package:feedback/screens/authenticate/login_page.dart';
 import 'package:feedback/screens/authenticate/sign_up.dart';
+import 'package:feedback/screens/dashboard.dart';
 import 'package:feedback/screens/home/dashboard.dart';
 import 'package:feedback/screens/home/home.dart';
 import 'package:feedback/screens/rating/compents/customer_info.dart';
@@ -48,11 +49,11 @@ class MyApp extends StatelessWidget {
           routes: {
             LoginPage.id: (context) => LoginPage(),
             Wrapper.id: (context) => Wrapper(),
-            Rating.id: (context) => Rating(),
+            Rating.id: (context) => Rating(customerPhone: '', customerName: '', customerEmail: '',),
             WelcomeScreen.id: (context) => WelcomeScreen(),
             SignUp.id: (context) => SignUp(),
             HomePage.id: (context) => HomePage(),
-            Dashboard.id: (context) => Dashboard(),
+            DashboardScreen.id: (context) => DashboardScreen(),
             CustomerInfo.id: (context) => CustomerInfo(),
           },
         ),
