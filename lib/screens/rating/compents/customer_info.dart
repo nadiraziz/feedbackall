@@ -107,13 +107,13 @@ class _CustomerInfoState extends State<CustomerInfo> {
                 ],
               ),
               ElevatedButton(onPressed: (){
-                Map<String,dynamic> CustomerData ={
+                Map<String,dynamic> customerData ={
                   'name': name,
                   'email': email,
                   'phone': phone,
                 };
                 if(isChecked){
-                  FirebaseFirestore.instance.collection('customerInfo').add(CustomerData);
+                  FirebaseFirestore.instance.collection('customerInfo').add(customerData);
                 }
                 if (_formKey.currentState!.validate()) {
                   Navigator.push(

@@ -1,5 +1,4 @@
 import 'package:feedback/screens/authenticate/login_page.dart';
-import 'package:feedback/screens/authenticate/sign_up.dart';
 import 'package:feedback/screens/rating/compents/customer_info.dart';
 import 'package:flutter/material.dart';
 

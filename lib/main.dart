@@ -3,9 +3,7 @@ import 'package:feedback/Wrapper.dart';
 import 'package:feedback/screens/authenticate/login_page.dart';
 import 'package:feedback/screens/authenticate/sign_up.dart';
 import 'package:feedback/screens/dashboard.dart';
-import 'package:feedback/screens/home/dashboard.dart';
 import 'package:feedback/screens/home/home.dart';
-import 'package:feedback/screens/rating/compents/customer_info.dart';
 import 'package:feedback/screens/rating/compents/rate_screen.dart';
 import 'package:feedback/screens/welcome_screen.dart';
 import 'package:feedback/services/auth.dart';
@@ -53,8 +51,7 @@ class MyApp extends StatelessWidget {
             WelcomeScreen.id: (context) => WelcomeScreen(),
             SignUp.id: (context) => SignUp(),
             HomePage.id: (context) => HomePage(),
-            DashboardScreen.id: (context) => DashboardScreen(),
-            CustomerInfo.id: (context) => CustomerInfo(),
+            CustomerInfoDashboard.id: (context) => CustomerInfoDashboard(),
           },
         ),
 

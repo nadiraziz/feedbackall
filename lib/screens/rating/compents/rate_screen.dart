@@ -1,4 +1,3 @@
-import 'package:feedback/screens/rating/compents/customer_info.dart';
 import 'package:feedback/screens/welcome_screen.dart';
 import 'package:feedback/services/questions.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-QuizBrain RatingBrain = QuizBrain();
+QuizBrain ratingBrain = QuizBrain();
 
 class Rating extends StatefulWidget {
   const Rating({Key? key,required this.customerEmail, required this.customerName, required this.customerPhone}) : super(key: key);
@@ -22,9 +21,7 @@ class Rating extends StatefulWidget {
 
 class _RatingState extends State<Rating> {
   double rating = 2.0;
-  List<dynamic?> ratedList = [];
-  final NameRated = TextEditingController();
-  final Phone = TextEditingController();
+  List<dynamic> ratedList = [];
   String customerName;
   String customerEmail;
   String customerPhone;
@@ -63,7 +60,7 @@ class _RatingState extends State<Rating> {
                   Expanded(child: Image.asset('assets/images/vivahblack.png', fit: BoxFit.fitWidth, )),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                    child: Text(RatingBrain.getQuestionText(),textAlign: TextAlign.center,
+                    child: Text(ratingBrain.getQuestionText(),textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 35.0,color: Colors.black87, fontWeight: FontWeight.w400),),
                   ),
                   RatingBar.builder(
@@ -79,11 +76,11 @@ class _RatingState extends State<Rating> {
                         ratedList.add(rating.toInt());
                         print(ratedList);
 
-                        if (!RatingBrain.isFinished()){
+                        if (!ratingBrain.isFinished()){
                           rating = 5;
                           print(value);
 
-                          RatingBrain.nextQuestion();
+                          ratingBrain.nextQuestion();
                         }else{
 
                           Map<String,dynamic> data ={
@@ -98,7 +95,7 @@ class _RatingState extends State<Rating> {
                           };
 
                         FirebaseFirestore.instance.collection('ratingwithuser').add(data);
-                        RatingBrain.reset();
+                        ratingBrain.reset();
                         ratedList = [];
                         Navigator.push(
                           context,
