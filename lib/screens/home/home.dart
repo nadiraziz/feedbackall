@@ -36,8 +36,8 @@ class _HomePageState extends State<HomePage> {
                 onPressed: (){
                   context.read<AuthenticationService>().signOut();
                   // Navigator.of(context)
-                  //     .pushNamedAndRemoveUntil(LoginPage.id, (Route<dynamic> route) => false);
-                  Navigator.pushNamed(context, WelcomeScreen.id);
+                  Navigator.pushNamedAndRemoveUntil(context, WelcomeScreen.id, ModalRoute.withName('/'));
+                  // Navigator.pushNamed(context, WelcomeScreen.id);
                 },
                 child: Text('Log Out')),
           ),

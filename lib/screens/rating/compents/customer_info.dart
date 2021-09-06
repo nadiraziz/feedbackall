@@ -35,7 +35,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
     }
     return new Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(50.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -90,21 +90,23 @@ class _CustomerInfoState extends State<CustomerInfo> {
                   setState(() => phone = val)
                 },
               ),
-              Row(
-                children: [
-                  Checkbox(
-                    checkColor: Colors.white,
-                    fillColor: MaterialStateProperty.resolveWith(getColor),
-                    value: isChecked,
-                    onChanged: (bool? value) {
-                    setState(() {
-                      isChecked = value!;
-                     });
-                    },
-                  ),
-                  SizedBox(width: 20.0,),
-                  Text('Are You Interested to get updates?')
-                ],
+              Expanded(
+                child: Row(
+                  children: [
+                    Checkbox(
+                      checkColor: Colors.white,
+                      fillColor: MaterialStateProperty.resolveWith(getColor),
+                      value: isChecked,
+                      onChanged: (bool? value) {
+                      setState(() {
+                        isChecked = value!;
+                       });
+                      },
+                    ),
+                    SizedBox(width: 20.0,),
+                    Text('Are You Interested to get updates?')
+                  ],
+                ),
               ),
               ElevatedButton(onPressed: (){
                 Map<String,dynamic> customerData ={

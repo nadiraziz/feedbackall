@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                                  password: password);
                              // Navigator.of(context)
                              //     .pushNamedAndRemoveUntil(HomePage.id, (Route<dynamic> route) => false);
-                             Navigator.pushNamed(context, HomePage.id);
+                             Navigator.pushNamedAndRemoveUntil(context, HomePage.id, ModalRoute.withName('/'));
                            });
                       },
                     ),

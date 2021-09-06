@@ -1,4 +1,5 @@
-import 'package:feedback/screens/welcome_screen.dart';
+import 'package:feedback/screens/rating/compents/video_back.dart';
+import 'package:feedback/screens/rating/end_video_screen.dart';
 import 'package:feedback/services/questions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,23 +34,18 @@ class _RatingState extends State<Rating> {
 
 
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/images/vivah4.jpg'),fit: BoxFit.fill)),
-        child: Center(
+      body: Stack(
+        children:[
+          BackgroundVideo(),
+          Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 180.0),
             child: Container(
               decoration: BoxDecoration(
-                color: Color.fromRGBO(211, 211, 211, 90),
+                // color: Color.fromRGBO(211, 211, 211, 90),
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [BoxShadow(
-                  color: Colors.grey,
-                  // offset: const Offset(
-                  //   2.0,
-                  //   3.0,
-                  // ),
+                  color: Color.fromRGBO(211, 211, 215, 90),
                   blurRadius: 3.0,
                   spreadRadius: 1.0,
                 )]
@@ -57,7 +53,7 @@ class _RatingState extends State<Rating> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(child: Image.asset('assets/images/vivahblack.png', fit: BoxFit.fitWidth, )),
+                  Expanded(child: Image.asset('assets/images/vivahblack.png', fit: BoxFit.fitHeight, )),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                     child: Text(ratingBrain.getQuestionText(),textAlign: TextAlign.center,
@@ -97,10 +93,8 @@ class _RatingState extends State<Rating> {
                         FirebaseFirestore.instance.collection('ratingwithuser').add(data);
                         ratingBrain.reset();
                         ratedList = [];
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => WelcomeScreen()),
-                        );
+                        dispose();
+                        Navigator.of(context).pushNamed(VideoApp.id);
                       }
                     });
                   },
@@ -111,7 +105,7 @@ class _RatingState extends State<Rating> {
             ),
           ),
         ),
-      ),
+      ]),
     );
   }
 }
