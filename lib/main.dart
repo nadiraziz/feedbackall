@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,8 +29,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // Set landscape orientation
     SystemChrome.setPreferredOrientations([
-      // DeviceOrientation.landscapeLeft,
-      // DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
       DeviceOrientation.portraitUp
     ]);
     return MultiProvider(

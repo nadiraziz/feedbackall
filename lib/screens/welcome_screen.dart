@@ -20,7 +20,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           body: Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/images/vivah.png'),fit: BoxFit.fitWidth)),
+                    image: AssetImage('assets/images/vivah.png'),fit: BoxFit.contain
+                )),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
