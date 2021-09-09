@@ -26,7 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+      ),
       body: Material(
           color: Colors.white,
           child: Form(
@@ -90,4 +91,5 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
 }

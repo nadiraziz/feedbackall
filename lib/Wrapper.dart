@@ -25,7 +25,7 @@ class _WrapperState extends State<Wrapper> {
         builder: (_, AsyncSnapshot<UserModel?> snapshot){
           if (snapshot.connectionState == ConnectionState.active){
             final UserModel? user = snapshot.data;
-            return user == null? LoginPage() : HomePage();
+            return user == null? WelcomeScreen() : HomePage();
           }else{
             return Scaffold(body: Center(child: CircularProgressIndicator(),),);
     }

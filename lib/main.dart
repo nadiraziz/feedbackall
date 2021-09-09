@@ -9,7 +9,6 @@ import 'package:feedback/screens/rating/compents/rate_screen.dart';
 import 'package:feedback/screens/rating/end_video_screen.dart';
 import 'package:feedback/screens/welcome_screen.dart';
 import 'package:feedback/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,7 +36,6 @@ class MyApp extends StatelessWidget {
         providers: [
           Provider<AuthService>(
             create: (_) => AuthService()),
-
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
