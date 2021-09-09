@@ -1,55 +1,37 @@
-import 'package:feedback/screens/home/home.dart';
+
+
 import 'package:feedback/services/User.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
-class AuthenticationService {
-  final FirebaseAuth _firebaseAuth;
-
-  AuthenticationService(this._firebaseAuth);
-
-
-  // create user object based on firebased user
-  UserModel? _fromFirebaseUser(User user)
-  {
-  return user != null ? UserModel(uid: user.uid) : null;
-  }
-
-
-
-  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
-
-  // sign in email and password
-  Future<dynamic> signIn({required String email, required String password}) async {
-    try {
-      UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      User? user = result.user;
-      HomePage();
-      return _fromFirebaseUser(user!);
-
-    } on FirebaseAuthException catch (e) {
-      return e.message;
-    }
-  }
-  // sign in email and password
-  Future<String?> signUp(
-      {required String email, required String password}) async {
-    try {
-      await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-    } on FirebaseAuthException catch (e) {
-      return e.message;
-    }
-  }
-  // sign out
-  Future signOut() async{
-    try{
-      await _firebaseAuth.signOut();
-      return null;
-    }catch(e){
-      print(e.toString());
+class AuthService{
+  final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
+  UserModel? _userFromFirebase(auth.User? user){
+    if(user == null){
       return null;
     }
+    return UserModel(user.uid, user.email);
   }
 
+  Stream<UserModel?>? get user {
+    return _firebaseAuth.authStateChanges().map(_userFromFirebase);
+  }
+// sign in user
+  Future<UserModel?> signInWithEmailPassword(String email, String password,) async{
+    final credential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+    return _userFromFirebase(credential.user);
+  }
+
+// create user
+  Future<UserModel?> createUserWithEmailPassword(String email, String password,) async{
+    final credential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+    return _userFromFirebase(credential.user);
+  }
+
+
+  // sign in out
+  Future<void> signOut() async{
+    return await _firebaseAuth.signOut();
+  }
 }

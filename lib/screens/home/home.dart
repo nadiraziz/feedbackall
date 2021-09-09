@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     return Scaffold(
       body: Center(
         child: Column(
@@ -33,11 +34,9 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: MaterialButton(
-                onPressed: (){
-                  context.read<AuthenticationService>().signOut();
-                  // Navigator.of(context)
-                  Navigator.pushNamedAndRemoveUntil(context, WelcomeScreen.id, ModalRoute.withName('/'));
-                  // Navigator.pushNamed(context, WelcomeScreen.id);
+                onPressed: () async {
+                  await  authService.signOut();
+                  Navigator.pushNamed(context, WelcomeScreen.id);
                 },
                 child: Text('Log Out')),
           ),

@@ -35,13 +35,9 @@ class MyApp extends StatelessWidget {
     ]);
     return MultiProvider(
         providers: [
-          Provider<AuthenticationService>(
-            create: (_) => AuthenticationService(FirebaseAuth.instance),
-          ),
-          StreamProvider(
-            create: (context) => context.read<AuthenticationService>().authStateChanges,
-            initialData: null
-          ),
+          Provider<AuthService>(
+            create: (_) => AuthService()),
+
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -52,7 +48,7 @@ class MyApp extends StatelessWidget {
           primaryTextTheme: GoogleFonts.latoTextTheme()),
           darkTheme: ThemeData(
           brightness: Brightness.dark) ,
-          initialRoute: WelcomeScreen.id,
+          initialRoute: Wrapper.id,
           routes: {
             LoginPage.id: (context) => LoginPage(),
             Wrapper.id: (context) => Wrapper(),

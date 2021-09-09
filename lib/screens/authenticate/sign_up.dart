@@ -78,11 +78,11 @@ class _SignUpState extends State<SignUp> {
                       style: TextButton.styleFrom(),
                       onPressed: () async {
                         setState(() {
-                          if(_formKey.currentState!.validate()){
-                            context.read<AuthenticationService>().signUp(
-                                email: email,
-                                password: password);
-                          }
+                          // if(_formKey.currentState!.validate()){
+                          //   context.read<AuthenticationService>().signUp(
+                          //       email: email,
+                          //       password: password);
+                          // }
                         });
                       },
                     ),
