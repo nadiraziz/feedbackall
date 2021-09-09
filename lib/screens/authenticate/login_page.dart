@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextButton.styleFrom(),
                         onPressed: () async {
                           await authService.signInWithEmailPassword(_emailController.text, _passwordController.text);
-                          Navigator.pushNamed(context, HomePage.id);
+                          Navigator.pushNamedAndRemoveUntil(context, HomePage.id, (route) => false);
                         }),
                       SizedBox(
                         height: 20.0,
@@ -90,10 +90,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  // @override
-  // void dispose() {
-  //   _emailController.dispose();
-  //   _passwordController.dispose();
-  //   super.dispose();
-  // }
 }

@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
             child: MaterialButton(
                 onPressed: () async {
                   await  authService.signOut();
-                  Navigator.pushNamed(context, WelcomeScreen.id);
+                  Navigator.pushNamedAndRemoveUntil(context, WelcomeScreen.id, (route) => false);
                 },
                 child: Text('Log Out')),
           ),
